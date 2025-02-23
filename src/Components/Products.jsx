@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 const Products = () => {
   const { productId } = useParams();
+  const dispatch = useDispatch();
   const [specificProduct, setSpecificProduct] = useState(null);
   useEffect(() => {
     const foundProduct = products.find((product) => product.id === productId);
