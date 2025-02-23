@@ -4,11 +4,18 @@ import { useSelector } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
+import useSearch from "../context/searchContext";
+
 
 const Header = () => {
   const cart = useSelector((state) => state.cart);
   const [cartLength, setCartLength] = useState(0);
-  const [searchInput, setSearchInput] = useState("");
+  const {setSearchInput, searchInput} = useSearch();
+
+  const submitHandler = (e)=>{
+    e.preventDefault();
+  }
+
   useEffect(() => {
     setCartLength(cart.length);
   }, [cart]);
@@ -39,9 +46,9 @@ const Header = () => {
           value={searchInput}
           onChange={(e)=> setSearchInput(e.target.value)}
             placeholder="Search"
-            className="bg-gray-100 text-xl px-4 outline-none focus:border-2 focus:border-black  border-1 font-[montserrat] border-gray-300 w-3xl focus:bg-white transition duration-150 py-2.5"
+            className="bg-gray-100 text-xl px-4 outline-none focus:border-1 focus:border-black  border-1 font-[montserrat] border-gray-300 w-3xl focus:bg-white transition duration-150 py-2.75"
           />
-          <button type="submit" className="py-3 align-middle px-4 text-white border-none cursor-pointer  bg-blue-800">
+          <button type="submit" onClick={submitHandler} className="py-3 align-top  px-4 text-white  border-2 border-blue-800 border-b-3 cursor-pointer  bg-blue-800">
             <FaSearch width="1" />
           </button>
           </form>

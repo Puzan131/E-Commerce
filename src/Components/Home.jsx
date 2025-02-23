@@ -1,12 +1,29 @@
 import React, { useEffect, useState } from "react";
 import products from "../data/products";
-import { Link } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
-import { setCart } from "../features/CartSlice";
+import { Link } from "react-router";;
 import ImageSlider from "./ImageSlider";
+import useSearch from "../context/searchContext";
 
 const Home = () => {
-  const dispatch = useDispatch();
+    const {searchInput} = useSearch()
+    const [productData, setProductData] = useState(products)
+    useEffect(() => {
+        if(searchInput.trim()){
+            setProductData(products.filter((product)=>product.name.toLowerCase().includes(searchInput.toLowerCase())))
+        }
+        else{
+            setProductData(products)
+        }
+    }, [searchInput])
+
+
+    useEffect(() => {
+        // setProductData(productData.name.toLowerCase().includes(searchInput.toLowerCase()))
+
+
+    }, [searchInput])
+
+
 
 //   const cart = useSelector((state) => state.cart);
 
@@ -25,7 +42,7 @@ const Home = () => {
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
             <ImageSlider />
           <div className="mt-26 grid grid-cols-1 gap-x-36 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            {products.map((product) => (
+            {productData.map((product) => (
               <Link to={`/products/${product.id}`}>
                 <div key={product.id} className="group relative">
                   <img

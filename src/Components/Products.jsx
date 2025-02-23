@@ -5,12 +5,11 @@ import { addToCart } from "../features/CartSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router";
 import {ToastContainer, toast} from "react-toastify"
+import { useSelector } from "react-redux";
 
 const Products = () => {
   const { productId } = useParams();
   const [specificProduct, setSpecificProduct] = useState(null);
-  const dispatch = useDispatch();
-
   useEffect(() => {
     const foundProduct = products.find((product) => product.id === productId);
     setSpecificProduct(foundProduct);
@@ -20,6 +19,7 @@ const Products = () => {
     return (
       <div className="text-3xl text-red-400">Error! Product not found</div>
     );
+
 
     const addToCartFunc = ()=>{
         dispatch(addToCart(specificProduct));
