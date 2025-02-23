@@ -2,7 +2,9 @@ import { createContext, useState, useContext } from "react";
 
 const SearchContext = createContext({
     searchInput : "",
-    setSearchInput : ()=>{}
+    redirectProductId: "",
+    setSearchInput : ()=>{},
+    setRedirectProductId : ()=>{}
 })
 
 const SearchContextProvider = SearchContext.Provider;

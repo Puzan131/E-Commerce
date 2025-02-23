@@ -5,15 +5,18 @@ import { FaShoppingCart } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import useSearch from "../context/searchContext";
+import { useNavigate } from "react-router";
 
 
 const Header = () => {
   const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate()
   const [cartLength, setCartLength] = useState(0);
-  const {setSearchInput, searchInput} = useSearch();
+  const {setSearchInput, searchInput, redirectProductId} = useSearch();
 
   const submitHandler = (e)=>{
     e.preventDefault();
+    navigate(`products/${redirectProductId}`);
   }
 
   useEffect(() => {

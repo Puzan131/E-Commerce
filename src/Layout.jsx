@@ -6,8 +6,9 @@ import { SearchContextProvider } from './context/searchContext'
 
 const Layout = () => {
     const [searchInput, setSearchInput] = useState("");
+    const [redirectProductId, setRedirectProductId] = useState("");
   return (
-    <SearchContextProvider value={{searchInput, setSearchInput}}>
+    <SearchContextProvider value={{searchInput, setSearchInput,redirectProductId, setRedirectProductId }}>
     <Header />
     <div className='min-h-[81.5vh]'>
     <Outlet />

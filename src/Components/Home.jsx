@@ -5,15 +5,12 @@ import ImageSlider from "./ImageSlider";
 import useSearch from "../context/searchContext";
 
 const Home = () => {
-    const {searchInput} = useSearch()
+    const {searchInput, setRedirectProductId} = useSearch()
     const [productData, setProductData] = useState(products)
     useEffect(() => {
-        if(searchInput.trim()){
-            setProductData(products.filter((product)=>product.name.toLowerCase().includes(searchInput.toLowerCase())))
-        }
-        else{
-            setProductData(products)
-        }
+            const filteredProduct = products.filter((product)=>product.name.toLowerCase().includes(searchInput.toLowerCase()));
+            setProductData(filteredProduct);
+            filteredProduct.length!==0 ? setRedirectProductId(filteredProduct[0].id) : null
     }, [searchInput])
 
 
@@ -42,7 +39,7 @@ const Home = () => {
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
             <ImageSlider />
           <div className="mt-26 grid grid-cols-1 gap-x-36 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            {productData.map((product) => (
+            {productData.length>0 ? productData.map((product) => (
               <Link to={`/products/${product.id}`}>
                 <div key={product.id} className="group relative">
                   <img
@@ -68,7 +65,8 @@ const Home = () => {
                   </div>
                 </div>
               </Link>
-            ))}
+            )) : (<div className="h-full w-[80vw] text-6xl text-center text-gray-800 ">Product not found!</div>)
+            }
           </div>
         </div>
       </div>
